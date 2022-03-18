@@ -1,0 +1,325 @@
+{% load cms_tags sekizai_tags menu_tags%}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>North Shore Now</title>
+
+<title>{% page_attribute "page_title" %}</title>
+{% render_block "css" %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+  <style type="text/css">
+
+
+.mapboxgl-popup {
+max-width: 400px;
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+}
+
+  
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  #map {
+    position: relative;
+    height: 700px;
+    width: auto;
+  }
+
+  .map-container {
+    width: auto;
+  }
+
+  .jumbotron {
+    height: auto;
+  }
+
+  .jumbo-text{
+    text-align: center;
+  }
+
+
+  @font-face {
+    font-family: Avenir;
+    src: url(backend/static/Avenir Next Condensed Bold.ttf)
+}
+
+  h1{
+    font-family: Avenir;
+    color: black;
+}
+
+
+
+
+  </style>
+ 
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script src="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.js"></script>
+<link
+  href="https://api.tiles.mapbox.com/mapbox-gl-js/v2.6.1/mapbox-gl.css"
+  rel="stylesheet"
+/>
+
+<style>
+
+</style>
+
+</head>
+<body>
+    {% cms_toolbar %}
+    {% placeholder "content" %}
+    {% render_block "js" %}
+
+  <script>
+  $("a").click(function(){
+    var pageId = $(this).attr("data-page");
+    $("html, body").animate({ scrollTop: $("#"+pageId).offset().top }, 1000);
+  });
+  </script>
+
+  <style>
+    h1 {
+   color: black; 
+   font-weight: bold;
+   font-size: 20px;
+   }
+   span{
+   color: #2057e0
+   }
+
+   h2 {
+     font-size: 125px;
+     font-weight: bold;
+     text-align: center
+   }
+   </style>
+   
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <h1>NORTH <span>SHORE </span>NOW</h1>
+           </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+          {% show_menu 0 1 100 100 "menu.html" %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="jumbotron p-5 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <div class="jumbo-image container"> <h2>NORTH <span>SHORE </span>NOW</h2> </div>
+      <h2 class="container display-5 text-center">by Council Member Kamillah M. Hanks</h2>
+      <p class="container col-md-8 fs-4 text-center">North Shore Now is a iniative to spread important information to the residents of the North Shore of Staten Island.</p>
+      <button class="btn btn-primary btn-lg" type="button">Example button</button>
+    </div>
+  </div>
+
+  <div class="map-container">
+    <div id="map"></div>
+    <script>
+      // The value for 'accessToken' begins with 'pk...'
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiYW50b3VucyIsImEiOiJja3o3Ym4zbWwxMDZpMnhwcm5kaGZrNDBnIn0.AWG1aR13mQ_BIEp5Y2b-Uw";
+      const map = new mapboxgl.Map({
+        container: "map",
+        // Replace YOUR_STYLE_URL with your style URL.
+        style: "mapbox://styles/antouns/ckz7exrm7002514p709z86e0s",
+        center: [-74.12093, 40.62556],
+        zoom: 13,
+        pitch: 10, // pitch in degrees
+        bearing: 0, // bearing in degrees
+      });
+  
+      map.on("load", () => {
+        map.addSource("places", {
+          // This GeoJSON contains features that include an "icon"
+          // property. The value of the "icon" property corresponds
+          // to an image in the Mapbox Streets style's sprite.
+          type: "geojson",
+          data: {
+            type: "FeatureCollection",
+            features: [
+              {
+                type: "Feature",
+                properties: {
+                  
+                  description:
+                    '<strong>JCC Gerard Carter Center</strong><p><a href="http://www.mtpleasantdc.com/makeitmtpleasant" target="_blank" title="Opens in a new window">Make it Mount Pleasant</a> is a handmade and vintage market and afternoon of live entertainment and kids activities. 12:00-6:00 p.m.</p>',
+                  icon: 'point',
+                //'marker-size': 'large'
+          
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-74.0821883, 40.6230512],
+                },
+              },
+              {
+                type: "Feature",
+                properties: {
+                  description:
+                    '<strong>Mad Men Season Five Finale Watch Party</strong><p>Head to Lounge 201 (201 Massachusetts Avenue NE) Sunday for a <a href="http://madmens5finale.eventbrite.com/" target="_blank" title="Opens in a new window">Mad Men Season Five Finale Watch Party</a>, complete with 60s costume contest, Mad Men trivia, and retro food and drink. 8:00-11:00 p.m. $10 general admission, $20 admission and two hour open bar.</p>',
+                  icon: "theatre-15",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-77.003168, 38.894651],
+                },
+              },
+              {
+                type: "Feature",
+                properties: {
+                  description:
+                    '<strong>Big Backyard Beach Bash and Wine Fest</strong><p>EatBar (2761 Washington Boulevard Arlington VA) is throwing a <a href="http://tallulaeatbar.ticketleap.com/2012beachblanket/" target="_blank" title="Opens in a new window">Big Backyard Beach Bash and Wine Fest</a> on Saturday, serving up conch fritters, fish tacos and crab sliders, and Red Apron hot dogs. 12:00-3:00 p.m. $25.grill hot dogs.</p>',
+                  icon: "bar-15",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-77.090372, 38.881189],
+                },
+              },
+              {
+                type: "Feature",
+                properties: {
+                  description:
+                    '<strong>Ballston Arts & Crafts Market</strong><p>The <a href="http://ballstonarts-craftsmarket.blogspot.com/" target="_blank" title="Opens in a new window">Ballston Arts & Crafts Market</a> sets up shop next to the Ballston metro this Saturday for the first of five dates this summer. Nearly 35 artists and crafters will be on hand selling their wares. 10:00-4:00 p.m.</p>',
+                  icon: "art-gallery-15",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-77.111561, 38.882342],
+                },
+              },
+              {
+                type: "Feature",
+                properties: {
+                  description:
+                    '<strong>Seersucker Bike Ride and Social</strong><p>Feeling dandy? Get fancy, grab your bike, and take part in this year\'s <a href="http://dandiesandquaintrelles.com/2012/04/the-seersucker-social-is-set-for-june-9th-save-the-date-and-start-planning-your-look/" target="_blank" title="Opens in a new window">Seersucker Social</a> bike ride from Dandies and Quaintrelles. After the ride enjoy a lawn party at Hillwood with jazz, cocktails, paper hat-making, and more. 11:00-7:00 p.m.</p>',
+                  icon: "bicycle-15",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-77.052477, 38.943951],
+                },
+              },
+              {
+                type: "Feature",
+                properties: {
+                  description:
+                    '<strong>Capital Pride Parade</strong><p>The annual <a href="http://www.capitalpride.org/parade" target="_blank" title="Opens in a new window">Capital Pride Parade</a> makes its way through Dupont this Saturday. 4:30 p.m. Free.</p>',
+                  icon: "rocket-15",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-77.043444, 38.909664],
+                },
+              },
+              {
+                type: "Feature",
+                properties: {
+                  description:
+                    '<strong>Muhsinah</strong><p>Jazz-influenced hip hop artist <a href="http://www.muhsinah.com" target="_blank" title="Opens in a new window">Muhsinah</a> plays the <a href="http://www.blackcatdc.com">Black Cat</a> (1811 14th Street NW) tonight with <a href="http://www.exitclov.com" target="_blank" title="Opens in a new window">Exit Clov</a> and <a href="http://godsilla.bandcamp.com" target="_blank" title="Opens in a new window">Gods’illa</a>. 9:00 p.m. $12.</p>',
+                  icon: "music-15",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-77.031706, 38.914581],
+                },
+              },
+              {
+                type: "Feature",
+                properties: {
+                  description:
+                    '<strong>A Little Night Music</strong><p>The Arlington Players\' production of Stephen Sondheim\'s  <a href="http://www.thearlingtonplayers.org/drupal-6.20/node/4661/show" target="_blank" title="Opens in a new window"><em>A Little Night Music</em></a> comes to the Kogod Cradle at The Mead Center for American Theater (1101 6th Street SW) this weekend and next. 8:00 p.m.</p>',
+                  icon: "music-15",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-77.020945, 38.878241],
+                },
+              },
+              {
+                type: "Feature",
+                properties: {
+                  description:
+                    '<strong>Truckeroo</strong><p><a href="http://www.truckeroodc.com/www/" target="_blank">Truckeroo</a> brings dozens of food trucks, live music, and games to half and M Street SE (across from Navy Yard Metro Station) today from 11:00 a.m. to 11:00 p.m.</p>',
+                  icon: "music-15",
+                },
+                geometry: {
+                  type: "Point",
+                  coordinates: [-77.007481, 38.876516],
+                },
+              },
+            ],
+          },
+        });
+        // Add a layer showing the places.
+        map.addLayer({
+          id: "places",
+          type: "symbol",
+          source: "places",
+          layout: {
+            "icon-image": "{icon}",
+            "icon-allow-overlap": true,
+          },
+        });
+  
+        // When a click event occurs on a feature in the places layer, open a popup at the
+        // location of the feature, with description HTML from its properties.
+        map.on("click", "places", (e) => {
+          // Copy coordinates array.
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const description = e.features[0].properties.description;
+  
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+  
+          new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(description)
+            .addTo(map);
+        });
+  
+        // Change the cursor to a pointer when the mouse is over the places layer.
+        map.on("mouseenter", "places", () => {
+          map.getCanvas().style.cursor = "pointer";
+        });
+  
+        // Change it back to a pointer when it leaves.
+        map.on("mouseleave", "places", () => {
+          map.getCanvas().style.cursor = "";
+        });
+      });
+      map.scrollZoom.disable();
+    </script>
+  </div>
+
+  <style>
+  
+  </style>
+
+  <h2 class="testing">TESTING FONTS</h2>
+
+  {% block content %}{% endblock content %}
+
+
+</body>
+</html>
